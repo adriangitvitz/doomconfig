@@ -97,30 +97,6 @@
 
 (add-hook 'go-mode-hook #'go-guru-hl-identifier-mode)
 
-(map! (:after evil-org
-       :map evil-org-mode-map
-       :n "gk" (cmds! (org-on-heading-p)
-                      #'org-backward-element
-                      #'evil-previous-visual-line)
-       :n "gj" (cmds! (org-on-heading-p)
-                      #'org-forward-element
-                      #'evil-next-visual-line))
-
-      :o "o" #'evil-inner-symbol
-
-      :leader
-      "h L" #'keycast-mode
-      (:prefix "f"
-               "t" #'find-in-dotfiles
-               "T" #'browse-dotfiles)
-      (:prefix "n"
-               "b" #'org-roam-buffer-toggle
-               "d" #'org-roam-dailies-goto-today
-               "D" #'org-roam-dailies-goto-date
-               "e" (cmd! (find-file (doom-path org-directory "ledger/personal.gpg")))
-               "i" #'org-roam-node-insert
-               "r" #'org-roam-node-find
-               "R" #'org-roam-capture))
 
 (setq org-directory "~/Documents/Notes/roam"
       org-roam-directory org-directory
