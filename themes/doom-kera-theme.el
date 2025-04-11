@@ -62,7 +62,7 @@ determine the exact padding."
    ;; face categories -- required for all themes
    (highlight      blue)
    (vertical-bar   base0)
-   (selection      dark-blue)
+   (selection      bg-alt)
    (builtin        magenta)
    (comments       orange) ;; TODO: See if could be later change
    (doc-comments   (doom-lighten comments 0.15))
@@ -75,7 +75,7 @@ determine the exact padding."
    (strings        green)
    (variables      (doom-lighten magenta 0.4))
    (numbers        orange)
-   (region         selection)
+   (region         (doom-lighten selection 0.15))
    (error          red)
    (warning        yellow)
    (success        green)
@@ -130,12 +130,29 @@ determine the exact padding."
 
    (evil-goggles-default-face :inherit 'region :background (doom-blend region bg 0.5))
 
-   ((line-number &override) :foreground base4)
+   ((line-number &override) :foreground base6 :background "#353535")
    ((line-number-current-line &override) :foreground fg)
 
    (font-lock-comment-face
     :foreground comments
     :background (if doom-kera-comment-bg (doom-lighten bg 0.05)))
+
+   ;; Search customization
+   (isearch :background "#4A4A68" :foreground "#E8E8F0") ;; Purplish-blue search highlight
+   (lazy-highlight :background "#384048") ;; Secondary search matches
+   (completions-highlight-face :background "#242428" :foreground "#B3D4D1")
+   (vertico-current :background "#242428" :foreground "#B3D4D1" :bold t)
+   (consult-file :foreground "#B3D4D1")
+   (marginalia-file-name :foreground "#B3C7D9")
+   ((shadow &override) :foreground (doom-lighten base7 0.1))
+   (completions-annotations :inherit 'shadow)
+   (marginalia-file-priv-dir :inherit 'shadow)
+   (marginalia-file-priv-no :inherit 'shadow)
+   (file-name-shadow
+        :foreground (doom-lighten base7 0.1)    ;; Using theme color variables
+        :background (doom-darken bg 0.05)       ;; Optional background tint
+        :italic nil)                            ;; Optional style settings
+
    (font-lock-doc-face
     :inherit 'font-lock-comment-face
     :foreground doc-comments)
@@ -165,7 +182,7 @@ determine the exact padding."
    (doom-modeline-buffer-project-root :foreground green :weight 'bold)
 
    ;; ivy-mode
-   (ivy-current-match :background dark-blue :distant-foreground base0 :weight 'normal)
+   (ivy-current-match :background dark-blue :distant-foreground fg :weight 'normal)
 
    ;; --- major-mode faces -------------------
    ;; css-mode / scss-mode
