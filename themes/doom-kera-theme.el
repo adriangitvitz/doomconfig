@@ -29,7 +29,7 @@ determine the exact padding."
   :type '(choice integer boolean))
 
 (def-doom-theme doom-kera
-  "A custom theme for keratoconus"
+    "A custom theme for keratoconus with subtle highlights"
 
   ;; name        default   256       16
   ((bg         '("#1A1A1D" nil       nil            ))
@@ -41,39 +41,39 @@ determine the exact padding."
    (base4      '("#45454D" "#45454D" "brightblack"  ))
    (base5      '("#666670" "#666670" "brightblack"  ))
    (base6      '("#9696A0" "#9696A0" "brightblack"  ))
-   (base7      '("#D5D5DD" "#D5D5DD" "brightblack"  ))
+   (base7      '("#C5C5CF" "#C5C5CF" "brightblack"  ))
    (base8      '("#E8E8F0" "#E8E8F0" "white"        ))
    (fg         '("#E8E8E8" "#E8E8E8" "white"        ))
-   (fg-alt     '("#A69E93" "#A69E93" "brightwhite"  ))
+   (fg-alt     '("#CECECE" "#CECECE" "brightwhite"  ))
 
-   (grey       '("#8A8B8A" "#8A8A8A" "brightblack"  ))
-   (red        '("#E6B3B3" "#E6B3B3" "red"          ))
-   (orange     '("#E6C3A7" "#E6C3A7" "brightred"    ))
-   (yellow     '("#E6D5B3" "#E6D5B3" "yellow"       ))
-   (green      '("#C5D1B3" "#C5D1B3" "green"        ))
-   (blue       '("#B3C7D9" "#B3C7D9" "brightblue"   ))
-   (dark-blue  '("#7F9DB3" "#7F9DB3" "blue"         ))
-   (teal       '("#B3D1CD" "#B3D1CD" "brightcyan"   ))
-   (magenta    '("#D1C3D4" "#D1C3D4" "magenta"      ))
-   (violet     '("#C4B3CC" "#C4B3CC" "brightmagenta"))
-   (cyan       '("#B3D4D1" "#B3D4D1" "cyan"         ))
-   (dark-cyan  '("#8AB3B0" "#8AB3B0" "cyan"         ))
+   (grey       '("#9A9A9A" "#9A9A9A" "brightblack"  ))
+   (red        '("#E3D2C4" "#E3D2C4" "red"          ))
+   (orange     '("#E6D5C0" "#E6D5C0" "brightred"    ))
+   (yellow     '("#E8E0D0" "#E8E0D0" "yellow"       ))
+   (green      '("#D0D8C8" "#D0D8C8" "green"        ))
+   (blue       '("#D0D0D0" "#D0D0D0" "brightblue"   ))
+   (dark-blue  '("#A8A8A8" "#A8A8A8" "blue"         ))
+   (teal       '("#CFCFC8" "#CFCFC8" "brightcyan"   ))
+   (magenta    '("#E0D0C0" "#E0D0C0" "magenta"      ))
+   (violet     '("#CACAC8" "#CACAC8" "brightmagenta"))
+   (cyan       '("#C8C8C0" "#C8C8C0" "cyan"         ))
+   (dark-cyan  '("#A8A8A0" "#A8A8A0" "cyan"         ))
 
    ;; face categories -- required for all themes
-   (highlight      blue)
+   (highlight      yellow)
    (vertical-bar   base0)
    (selection      bg-alt)
-   (builtin        magenta)
-   (comments       orange) ;; TODO: See if could be later change
-   (doc-comments   (doom-lighten comments 0.15))
-   (constants      violet)
-   (functions      magenta)
-   (keywords       blue)
-   (methods        cyan)
+   (builtin        orange)
+   (comments       (doom-lighten grey 0.1))
+   (doc-comments   (doom-lighten grey 0.25))
+   (constants      red)
+   (functions      yellow)
+   (keywords       teal)
+   (methods        yellow)
    (operators      blue)
-   (type           yellow)
+   (type           (doom-lighten orange 0.1))
    (strings        green)
-   (variables      (doom-lighten magenta 0.4))
+   (variables      (doom-lighten blue 0.4))
    (numbers        orange)
    (region         (doom-lighten selection 0.15))
    (error          red)
@@ -84,25 +84,25 @@ determine the exact padding."
    (vc-deleted     red)
 
    ;; common
-   (common-accent   '("#E6D5B3" "orange"  "orange" )) ;; Softer accent
-   (common-bg       '("#1A1A1D" "black"   "black"  )) ;; Your background
-   (common-fg       '("#E8E8E8" "grey"    "grey"   )) ;; Brighter foreground
-   (common-ui       '("#8A8B8A" "grey"    "grey"   )) ;; Adjusted UI elements
-   (test            '("#B3C7D9" "grey"    "grey"   )) ;; Softer blue
+   (common-accent   '("#E8E0D0" "yellow"  "yellow" ))
+   (common-bg       '("#1A1A1D" "black"   "black"  ))
+   (common-fg       '("#E8E8E8" "grey"    "grey"   ))
+   (common-ui       '("#9A9A9A" "grey"    "grey"   ))
+   (test            '("#D0D0D0" "white"   "white"  ))
 
    ;; syntax
-   (syntax-tag      '("#B3D4D1" "cyan"    "blue"   )) ;; Softer cyan
-   (syntax-func     '("#E6D5B3" "yellow"  "yellow" )) ;; Warm yellow
-   (syntax-entity   '("#B3C7D9" "blue"    "blue"   )) ;; Soft blue
-   (syntax-string   '("#C5D1B3" "green"   "green"  )) ;; Sage green
-   (syntax-regexp   '("#B3D1CD" "teal"    "green"  )) ;; Soft teal
-   (syntax-markup   '("#E6B3B3" "red"     "red"    )) ;; Soft red
-   (syntax-keyword  '("#E6C3A7" "orange"  "orange" )) ;; Warm orange
-   (syntax-special  '("#E6D5B3" "yellow"  "yellow" )) ;; Warm yellow
-   (syntax-comment  '("#8A8B8A" "grey"    "grey"   )) ;; Brighter comments
-   (syntax-constant '("#D1C3D4" "magenta" "purple" )) ;; Soft magenta
-   (syntax-operator '("#E6C3A7" "orange"  "orange" )) ;; Warm orange
-   (syntax-error    '("#E6B3B3" "red"     "red"    )) ;; Soft red
+   (syntax-tag      '("#CFCFC8" "white"   "white"  ))
+   (syntax-func     '("#E8E0D0" "yellow"  "yellow" ))
+   (syntax-entity   '("#D0D0D0" "white"   "white"  ))
+   (syntax-string   '("#D0D8C8" "green"   "green"  ))
+   (syntax-regexp   '("#CFCFC8" "white"   "white"  ))
+   (syntax-markup   '("#E3D2C4" "red"     "red"    ))
+   (syntax-keyword  '("#E0D0C0" "orange"  "orange" ))
+   (syntax-special  '("#E8E0D0" "yellow"  "yellow" ))
+   (syntax-comment  '("#9A9A9A" "grey"    "grey"   ))
+   (syntax-constant '("#E6D5C0" "orange"  "orange" ))
+   (syntax-operator '("#D0D0D0" "white"   "white"  ))
+   (syntax-error    '("#E3D2C4" "red"     "red"    ))
 
    ;; custom categories
    (hidden     (car bg))
@@ -116,11 +116,11 @@ determine the exact padding."
 
    (modeline-bg
     (if -modeline-bright
-        (doom-darken blue 0.475)
+        (doom-darken yellow 0.475)
       (doom-darken (car bg-alt) 0.15)))
    (modeline-bg-l
     (if -modeline-bright
-        (doom-darken blue 0.45)
+        (doom-darken yellow 0.45)
       `(,(doom-darken (car bg-alt) 0.1) ,@(cdr base0))))
    (modeline-bg-inactive   (doom-darken bg-alt 0.1))
    (modeline-bg-inactive-l `(,(car bg-alt) ,@(cdr base1))))
@@ -130,7 +130,7 @@ determine the exact padding."
 
    (evil-goggles-default-face :inherit 'region :background (doom-blend region bg 0.5))
 
-   ((line-number &override) :foreground base6 :background "#353535")
+   ((line-number &override) :foreground base6 :background bg)
    ((line-number-current-line &override) :foreground fg)
 
    (font-lock-comment-face
@@ -138,20 +138,20 @@ determine the exact padding."
     :background (if doom-kera-comment-bg (doom-lighten bg 0.05)))
 
    ;; Search customization
-   (isearch :background "#4A4A68" :foreground "#E8E8F0") ;; Purplish-blue search highlight
-   (lazy-highlight :background "#384048") ;; Secondary search matches
-   (completions-highlight-face :background "#242428" :foreground "#B3D4D1")
-   (vertico-current :background "#242428" :foreground "#B3D4D1" :bold t)
-   (consult-file :foreground "#B3D4D1")
-   (marginalia-file-name :foreground "#B3C7D9")
+   (isearch :background "#3D3D40" :foreground "#FFFFFF")
+   (lazy-highlight :background "#323235")
+   (completions-highlight-face :background "#242428" :foreground "#E8E0D0")
+   (vertico-current :background "#242428" :foreground "#E8E0D0" :bold t)
+   (consult-file :foreground "#D0D8C8")
+   (marginalia-file-name :foreground "#D0D0D0")
    ((shadow &override) :foreground (doom-lighten base7 0.1))
    (completions-annotations :inherit 'shadow)
    (marginalia-file-priv-dir :inherit 'shadow)
    (marginalia-file-priv-no :inherit 'shadow)
    (file-name-shadow
-        :foreground (doom-lighten base7 0.1)    ;; Using theme color variables
-        :background (doom-darken bg 0.05)       ;; Optional background tint
-        :italic nil)                            ;; Optional style settings
+    :foreground (doom-lighten base7 0.1)
+    :background (doom-darken bg 0.05)
+    :italic nil)
 
    (font-lock-doc-face
     :inherit 'font-lock-comment-face
@@ -192,7 +192,7 @@ determine the exact padding."
 
    ;; markdown-mode
    (markdown-markup-face :foreground base5)
-   (markdown-header-face :inherit 'bold :foreground red)
+   (markdown-header-face :inherit 'bold :foreground orange)
    ((markdown-code-face &override) :background (doom-lighten base3 0.05))
 
    ;; org-mode
