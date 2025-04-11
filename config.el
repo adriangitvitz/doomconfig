@@ -13,10 +13,12 @@
 
 (setq org-directory "~/org/")
 
-(setq display-line-numbers-type t)
+(setq display-line-numbers-type nil)
 
-(setq doom-font (font-spec :family "MonoLisa" :size 19 :weight 'bold)
-     doom-variable-pitch-font (font-spec :family "MonoLisa" :size 19 :weight 'bold))
+(add-to-list 'default-frame-alist '(inhibit-double-buffering . t))
+
+(setq doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 19 :weight 'bold)
+      doom-variable-pitch-font (font-spec :family "MonoLisa" :size 19 :weight 'bold))
 
 (setq line-spacing 0.4)
 (setq mac-allow-anti-aliasing t)
@@ -33,7 +35,6 @@
 
 (setq doom-variable-pitch-ui t)    ; Enable variable pitch fonts
 (setq display-line-numbers-type 'relative)  ; Reduces visual noise
-;; (setq scroll-margin 5)                      ; Smoother scrolling
 (setq scroll-conservatively 10001)         ; Less motion blur
 
 (setq frame-background-mode 'dark)  ; Dark background mode
@@ -41,147 +42,27 @@
 (setq evil-emacs-state-cursor  '("#B85C5C" box))  ; For normal mode
 (setq evil-normal-state-cursor '("#B85C5C" box))  ; For emacs mode
 
-;; (custom-theme-set-faces! 'doom-tomorrow-night
-;;  '(default :background "#1A1A1D" :foreground "#E8E8E8" :weight bold) ;; Slightly cooler background
-;;  '(region :background "#2D2A32" :weight bold)) ;; More purple-tinted selection
-
-;; (custom-set-faces!
-;;   '(default :foreground "#E8E8E8") ;; Whiter text to counteract yellow light
-;;   '(line-number :foreground "#5B6268")
-;;   '(line-number-current-line :foreground "#F8F8F8" :background "#353535") ;; More white/purple to combat yellow
-;;   '(font-lock-comment-face :foreground "#A09890")  ;; Slightly grayer to remain visible
-;;   '(font-lock-keyword-face :foreground "#D1B280" :weight bold) ;; Less yellow, more white/pink
-;;   '(font-lock-string-face :foreground "#F2F1F6") ;; Less orange, more neutral/purple
-;;   '(font-lock-constant-face :foreground "#F8F8F8") ;; More neutral gray
-;;   '(font-lock-variable-name-face :foreground "#F8F8F8" :bold bold) ;; Cooler white
-;;   '(font-lock-builtin-face :foreground "#D1B280" :bold bold) ;; Cooler white
-;;   '(font-lock-function-name-face :foreground "#F8F8F8" :bold bold) ;; Slight blue tint but mostly white
-;;   '(font-lock-preprocessor-face :foreground "#D1B280") ;; Muted blue-gray
-;;   '(font-lock-type-face :foreground "#F2F1F6") ;; Less yellow
-;;   '(font-lock-doc-face :foreground "#A8B0B8") ;; Documentation comments
-
-;;   ;; UI blues
-;;   '(highlight :background "#303848") ;; Deep blue-gray highlight
-;;   '(isearch :background "#4A4A68" :foreground "#E8E8F0") ;; Purplish-blue search highlight
-;;   '(lazy-highlight :background "#384048") ;; Secondary search matches
-
-;;   ;; Info/help/documentation blues
-;;   '(info-title-1 :foreground "#C0C8D8" :weight bold) ;; Blue-tinted headers
-;;   '(info-title-2 :foreground "#B0B8C8" :weight bold)
-
-;;   ;; Completion and popup blues
-;;   '(company-tooltip-selection :background "#384050") ;; Selection in completion
-;;   '(company-tooltip-common :foreground "#A0B0C8") ;; Common prefix in completion
-
-;;   ;; Org mode faces
-;;   '(org-document-info-keyword :foreground "#B0A8B0") ;; Slight purple tint
-;;   '(org-document-title :foreground "#E0D8E0" :weight bold) ;; Cooler white
-;;   '(org-headline-done :foreground "#B0A8B0")
-;;   '(org-meta-line :foreground "#B0A8B0")
-;;   '(org-block :background "#1A1A1D" :extend t) ;; Match main background
-;;   '(org-block-begin-line :background "#1A1A1D" :foreground "#B0A8B0" :extend t)
-;;   '(org-block-end-line :background "#1A1A1D" :foreground "#B0A8B0" :extend t)
-
-;;   ;; UI elements with increased contrast
-;;   '(mode-line :background "#242428" :foreground "#D0C8D0") ;; Cooler mode line
-;;   '(mode-line-inactive :background "#1A1A1D")
-;;   '(mode-line-highlight  :foreground "#E8E0E8")
-;;   '(region :background "#383040" :extend t) ;; Much more distinct selection with purple tint
-;;   '(hl-line :background "#202025") ;; Cooler line highlight
-;;   '(tree-sitter-hl-face:operator :foreground "#F5F1E8") ;; Whiter
-;;   '(shadow :foreground "#D8D0D8")
-
-;;   ;; Link and reference colors
-;;   '(link :foreground "#E8E4E2" :underline t) ;; Saturated blue-lavender with underline for visibility
-;;   '(link-visited :foreground "#B0A8C8" :underline t) ;; Purple-blue visited links
-
-;;   ;; Diff and version control blues
-;;   '(diff-changed :background "#2A3040") ;; Changed lines in diffs
-;;   '(magit-diff-context-highlight :background "#2A3040") ;; Changed context in magit
-;;   '(magit-hash :foreground "#A0A8C0") ;; Commit hashes in magit
-
-;;   '(sp-pair-overlay-face :background "#303848") ;; Smartparens overlay
-
-;;   ;; Message and alert blues that need to remain visible
-;;   '(compilation-info :foreground "#A0B8D0" :weight bold) ;; Compilation information
-;;   '(success :foreground "#A0C0C0") ;; Success messages (blue-green tint)
-
-;;   ;; LSP and IDE feature blues
-;;   '(lsp-face-highlight-read :background "#384050") ;; LSP read highlights
-;;   '(lsp-face-highlight-write :background "#403850") ;; LSP write highlights
-;;   '(lsp-ui-doc-background :background "#252830") ;; Documentation popup background
-;;   '(lsp-face-highlight-textual :foreground "#F4ECD8")
-
-;;   ;; Additional elements for visibility
-;;   '(show-paren-match :background "#3A4050" :foreground nil) ;; Matching parentheses
-;;   '(vertical-border :foreground "#282830") ;; Cooler border
-;;   '(markdown-header-face :foreground "#F0E8F0" :weight bold) ;; Whiter headers
-;;   '(magit-section-highlight :background "#252530") ;; More distinct with purple tint
-;;   '(diff-added-highlight :background "#283828") ;; More intense green for diffs
-;;   '(diff-removed-highlight :background "#382828") ;; More intense red for diffs
-
-;;   '(web-mode-keyword-face :foreground "#D1B280" :weight bold)
-;;   '(web-mode-string-face  :foreground "#F0F5F1")
-;;   '(web-mode-html-tag-face :foreground "#A0A8D0")
-;;   '(web-mode-block-control-face :foreground "#C7A86D")
-;;   '(web-mode-html-attr-value-face :foreground "#8CA5A8")
-;;   '(rainbow-delimiters-depth-1-face :foreground "#F0E8F0")
-;;   '(js2-function-call :foreground "#E8E4E2")
-;;   '(js2-function-param :foreground "#D1B280")
-;; )
-
-;; (custom-theme-set-faces! 'doom-tomorrow-night
-;;  '(default :background "#181818" :foreground "#E0E0E0" :weight bold)
-;;  '(region :background "#181818" :weight bold))
-
-;; (custom-set-faces!
-;;   '(default :foreground "#E6E0D8")
-;;   '(line-number :foreground "#5B6268")  ;; Keep this muted tone
-;;   ;; '(line-number-current-line :foreground "#8A8D93")  ;; Less contrast from regular line numbers
-;;   '(line-number-current-line :foreground "#B0A89F")
-;;   '(font-lock-comment-face :foreground "#A89F8D")  ;; More muted than current green-yellow
-;;   '(font-lock-keyword-face :foreground "#D0C0A8" :weight bold)  ;; Consistent color for all keywords
-;;   '(font-lock-string-face :foreground "#C0B0A0")
-;;   '(font-lock-constant-face :foreground "#B0A89F")  ;; For numbers and constants
-;;   '(font-lock-variable-name-face :foreground "#C2B099" :bold bold)
-;;   '(font-lock-builtin-face :foreground "#C2B099" :bold bold)
-;;   '(font-lock-function-name-face :foreground "#E6D8C8" :bold bold)
-;;   '(font-lock-type-face :foreground "#C2B099")  ;; For type annotations
-;;   '(org-document-info-keyword :foreground "#B0A89F")  ;; More neutral
-;;   '(org-document-title :foreground "#B0A89F")  ;; More neutral
-;;   '(org-headline-done :foreground "#B0A89F")  ;; More neutral
-;;   '(org-meta-line :foreground "#B0A89F")  ;; More neutral
-;;   '(org-block :background "#181818" :extend t)  ;; Keep this
-;;   '(org-block-begin-line :background "#181818" :foreground "#B0A89F" :extend t)  ;; Match other org elements
-;;   '(org-block-end-line :background "#181818" :foreground "#B0A89F" :extend t)  ;; Match other org elements
-;;   '(mode-line :background "#181818")  ;; Keep this
-;;   '(mode-line-inactive :background "#181818")  ;; Keep this
-;;   '(region :background "#343434" :extend t)
-;;   '(tree-sitter-hl-face:operator :foreground "#D0C8C0")
-;;   '(shadow :foreground "#D0C8C0")
-;; )
-
 (add-to-list 'load-path "~/Documents/Personal/emacsplugins/org-present")
 (autoload 'org-present "org-present" nil t)
 
 (add-hook 'org-present-mode-hook
-        (lambda ()
-        (org-present-small)
-        (org-display-inline-images)))
+          (lambda ()
+            (org-present-small)
+            (org-display-inline-images)))
 
 (add-hook 'org-present-mode-quit-hook
-        (lambda ()
-        (org-present-small)
-        (org-remove-inline-images)))
+          (lambda ()
+            (org-present-small)
+            (org-remove-inline-images)))
 
 (after! lsp-java
   (setq lsp-java-server-install-dir "/Users/adriannajera/.local/share/nvim/mason/packages/jdtls/"
         lsp-java-jdt-download-url nil  ; Disable auto-download
         lsp-java-configuration-runtimes [
-          (:name "JavaSE-21"
-           :path "/Library/Java/JavaVirtualMachines/temurin-21.jdk/Contents/Home"
-           :default t)
-        ]
+                                         (:name "JavaSE-21"
+                                          :path "/Library/Java/JavaVirtualMachines/temurin-21.jdk/Contents/Home"
+                                          :default t)
+                                         ]
         lsp-java-workspace-dir "~/java_workspace/"))
 
 (setq lsp-java-vmargs
@@ -207,7 +88,7 @@
   :config
   (setq web-mode-enable-auto-pairing t)
   (setq web-mode-enable-auto-closing t)
-)
+  )
 
 (add-hook 'web-mode-hook #'emmet-mode) ; For HTML tag expansion
 
@@ -216,25 +97,160 @@
 
 (add-hook 'go-mode-hook #'go-guru-hl-identifier-mode)
 
-(use-package org-roam
-  :ensure t
-  :custom
-  (org-roam-directory (file-truename "/Users/adriannajera/Documents/Notes/roam"))
-  :bind (("C-c n l" . org-roam-buffer-toggle)
-         ("C-c n f" . org-roam-node-find)
-         ("C-c n g" . org-roam-graph)
-         ("C-c n i" . org-roam-node-insert)
-         ("C-c n c" . org-roam-capture)
-         ;; Dailies
-         ("C-c n j" . org-roam-dailies-capture-today))
-  :config
-  ;; If you're using a vertical completion framework, you might want a more informative completion interface
-  (setq org-roam-node-display-template (concat "${title:*} " (propertize "${tags:10}" 'face 'org-tag)))
-  (org-roam-db-autosync-mode)
-  ;; If using org-roam-protocol
-  (require 'org-roam-protocol))
+(map! (:after evil-org
+       :map evil-org-mode-map
+       :n "gk" (cmds! (org-on-heading-p)
+                      #'org-backward-element
+                      #'evil-previous-visual-line)
+       :n "gj" (cmds! (org-on-heading-p)
+                      #'org-forward-element
+                      #'evil-next-visual-line))
 
-;; (after! lsp-mode
-;;   (custom-set-faces!
-;;     '(lsp-face-semhl-operator :foreground "#FFD700")
-;;     ))
+      :o "o" #'evil-inner-symbol
+
+      :leader
+      "h L" #'keycast-mode
+      (:prefix "f"
+               "t" #'find-in-dotfiles
+               "T" #'browse-dotfiles)
+      (:prefix "n"
+               "b" #'org-roam-buffer-toggle
+               "d" #'org-roam-dailies-goto-today
+               "D" #'org-roam-dailies-goto-date
+               "e" (cmd! (find-file (doom-path org-directory "ledger/personal.gpg")))
+               "i" #'org-roam-node-insert
+               "r" #'org-roam-node-find
+               "R" #'org-roam-capture))
+
+(setq org-directory "~/Documents/Notes/roam"
+      org-roam-directory org-directory
+      org-roam-db-location (file-name-concat org-directory ".org-roam.db")
+      org-roam-dailies-directory "journal/"
+      org-archive-location (file-name-concat org-directory ".archive/%s::")
+      org-agenda-files (list org-directory)
+      org-log-done-with-time nil
+      org-habit-show-habits-only-for-today nil)
+
+(after! org
+  (add-to-list 'org-modules 'org-habit)
+  (setq org-startup-folded 'show2levels
+        org-ellipsis " [...] "
+        org-capture-templates
+        '(("t" "todo" entry (file+headline "todo.org" "Inbox")
+           "* [ ] %?\n%i\n%a"
+           :prepend t)
+          ("d" "deadline" entry (file+headline "todo.org" "Inbox")
+           "* [ ] %?\nDEADLINE: <%(org-read-date)>\n\n%i\n%a"
+           :prepend t)
+          ("s" "schedule" entry (file+headline "todo.org" "Inbox")
+           "* [ ] %?\nSCHEDULED: <%(org-read-date)>\n\n%i\n%a"
+           :prepend t)
+          ("c" "check out later" entry (file+headline "todo.org" "Check out later")
+           "* [ ] %?\n%i\n%a"
+           :prepend t)
+          ("l" "ledger" plain (file "ledger/personal.gpg")
+           "%(+beancount/clone-transaction)"))))
+
+(after! org-agenda
+  (setq org-agenda-todo-list-sublevels nil
+        org-agenda-compact-blocks t
+        org-agenda-sorting-strategy
+        '((agenda time-up category-keep habit-up priority-down)
+          (todo priority-down category-keep) (tags priority-down category-keep)
+          (search category-keep))))
+
+(after! org-roam
+  (setq org-roam-capture-templates
+        `(("n" "note" plain
+           ,(format "#+title: ${title}\n%%[%s/template/note.org]" org-roam-directory)
+           :target (file "note/%<%Y%m%d%H%M%S>-${slug}.org")
+           :unnarrowed t)
+          ("r" "thought" plain
+           ,(format "#+title: ${title}\n%%[%s/template/thought.org]" org-roam-directory)
+           :target (file "thought/%<%Y%m%d%H%M%S>-${slug}.org")
+           :unnarrowed t)
+          ("t" "topic" plain
+           ,(format "#+title: ${title}\n%%[%s/template/topic.org]" org-roam-directory)
+           :target (file "topic/%<%Y%m%d%H%M%S>-${slug}.org")
+           :unnarrowed t)
+          ("c" "contact" plain
+           ,(format "#+title: ${title}\n%%[%s/template/contact.org]" org-roam-directory)
+           :target (file "contact/%<%Y%m%d%H%M%S>-${slug}.org")
+           :unnarrowed t)
+          ("p" "project" plain
+           ,(format "#+title: ${title}\n%%[%s/template/project.org]" org-roam-directory)
+           :target (file "project/%<%Y%m%d>-${slug}.org")
+           :unnarrowed t)
+          ("i" "invoice" plain
+           ,(format "#+title: %%<%%Y%%m%%d>-${title}\n%%[%s/template/invoice.org]" org-roam-directory)
+           :target (file "invoice/%<%Y%m%d>-${slug}.org")
+           :unnarrowed t)
+          ("f" "ref" plain
+           ,(format "#+title: ${title}\n%%[%s/template/ref.org]" org-roam-directory)
+           :target (file "ref/%<%Y%m%d%H%M%S>-${slug}.org")
+           :unnarrowed t)
+          ("w" "works" plain
+           ,(format "#+title: ${title}\n%%[%s/template/works.org]" org-roam-directory)
+           :target (file "works/%<%Y%m%d%H%M%S>-${slug}.org")
+           :unnarrowed t)
+          ("s" "secret" plain "#+title: ${title}\n\n"
+           :target (file "secret/%<%Y%m%d%H%M%S>-${slug}.org.gpg")
+           :unnarrowed t))
+        ;; Use human readable dates for dailies titles
+        org-roam-dailies-capture-templates
+        `(("d" "default" plain ""
+           :target (file+head "%<%Y-%m-%d>.org" ,(format "%%[%s/template/journal.org]" org-roam-directory))))))
+
+(after! org-tree-slide
+  ;; I use g{h,j,k} to traverse headings and TAB to toggle their visibility, and
+  ;; leave C-left/C-right to .  I'll do a lot of movement because my
+  ;; presentations tend not to be very linear.
+  (setq org-tree-slide-skip-outline-level 2))
+
+(after! org-roam
+  ;; Offer completion for #tags and @areas separately from notes.
+  (add-to-list 'org-roam-completion-functions #'org-roam-complete-tag-at-point)
+
+  ;; Automatically update the slug in the filename when #+title: has changed.
+  (add-hook 'org-roam-find-file-hook #'org-roam-update-slug-on-save-h)
+
+  ;; Make the backlinks buffer easier to peruse by folding leaves by default.
+  (add-hook 'org-roam-buffer-postrender-functions #'magit-section-show-level-2)
+
+  ;; List dailies and zettels separately in the backlinks buffer.
+  (advice-add #'org-roam-backlinks-section :override #'org-roam-grouped-backlinks-section)
+
+  ;; Open in focused buffer, despite popups
+  (advice-add #'org-roam-node-visit :around #'+popup-save-a)
+
+  ;; Make sure tags in vertico are sorted by insertion order, instead of
+  ;; arbitrarily (due to the use of group_concat in the underlying SQL query).
+  (advice-add #'org-roam-node-list :filter-return #'org-roam-restore-insertion-order-for-tags-a)
+
+  ;; Add ID, Type, Tags, and Aliases to top of backlinks buffer.
+  (advice-add #'org-roam-buffer-set-header-line-format :after #'org-roam-add-preamble-a))
+
+;; Hide the menu for as minimalistic a startup screen as possible.
+(setq +doom-dashboard-functions '(doom-dashboard-widget-banner))
+
+(after! corfu
+  (setq corfu-auto nil))
+
+(setq doom-modeline-modal nil
+      doom-modeline-check-simple-format t)
+
+(setq evil-split-window-below t
+      evil-vsplit-window-right t)
+
+(setq evil-ex-substitute-global t)
+
+;; Disable invasive lsp-mode features
+(after! lsp-mode
+  (setq lsp-enable-symbol-highlighting nil
+        ;; If an LSP server isn't present when I start a prog-mode buffer, you
+        ;; don't need to tell me. I know. On some machines I don't care to have
+        ;; a whole development environment for some ecosystems.
+        lsp-enable-suggest-server-download nil))
+(after! lsp-ui
+  (setq lsp-ui-sideline-enable nil  ; no more useful than flycheck
+        lsp-ui-doc-enable nil))     ; redundant with K
