@@ -12,4 +12,18 @@ git sparse-checkout set themes
 git checkout main
 ```
 
+Load the theme ~/.config/doom/packages.el
+
+``` emacs-lisp
+(package! doom-kera-theme
+  :recipe (:local-repo "themes"
+           :files ("*.el")))
+```
+
+Changes in ~/.config/doom/config.el
+
+``` emacs-lisp
+(setq doom-theme 'doom-kera)
+```
+
 ![Screenshot 2025-04-11 at 1 27 08 p m](https://github.com/user-attachments/assets/0d185e3b-7d58-4b48-a1cd-b6571d9a938c)
