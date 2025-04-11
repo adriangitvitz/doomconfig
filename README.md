@@ -26,6 +26,12 @@ Changes in ~/.config/doom/config.el
 (setq doom-theme 'doom-kera)
 ```
 
+Reload your config
+
+``` shell
+~/.config/emacs/bin/doom sync
+```
+
 * Notes:
 doom-kera-theme.el should be inside themes folder under ~/.config/doom
 
