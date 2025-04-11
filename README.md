@@ -12,4 +12,4 @@ git sparse-checkout set themes
 git checkout main
 ```
 
-![Screenshot 2025-04-10 at 11 37 31 p m](https://github.com/user-attachments/assets/745cb365-a65d-47fe-adea-c98d03e4491e)
+![Screenshot 2025-04-11 at 1 27 08 p m](https://github.com/user-attachments/assets/0d185e3b-7d58-4b48-a1cd-b6571d9a938c)
