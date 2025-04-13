@@ -7,9 +7,9 @@ Clone kera theme by using sparse checkout
 ``` shell
 git clone --no-checkout git@github.com:adriangitvitz/doomconfig.git
 cd doomconfig
-git sparse-checkout init --cone
-git sparse-checkout set themes
-git checkout main
+git sparse-checkout init --no-cone
+echo "themes/" > .git/info/sparse-checkout
+git checkout
 ```
 
 Load the theme ~/.config/doom/packages.el
