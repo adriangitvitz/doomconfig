@@ -32,50 +32,50 @@ determine the exact padding."
     "A custom theme for keratoconus with subtle highlights"
 
   ;; name        default   256       16
-  ((bg         '("#1f2430" nil       nil            ))
-   (bg-alt     '("#252b38" nil       nil            ))
-   (base0      '("#171c26" "black"   "black"        ))
-   (base1      '("#1a202c" "#1a202c" "brightblack"  ))
-   (base2      '("#232a38" "#232a38" "brightblack"  ))
-   (base3      '("#2d3747" "#2d3747" "brightblack"  ))
-   (base4      '("#3d4759" "#3d4759" "brightblack"  ))
-   (base5      '("#606a7e" "#606a7e" "brightblack"  ))
-   (base6      '("#8a93a8" "#8a93a8" "brightblack"  ))
-   (base7      '("#c0c7d5" "#c0c7d5" "brightblack"  ))
-   (base8      '("#ebeef5" "#ebeef5" "white"        ))
-   (fg         '("#d8dee9" "#d8dee9" "white"        ))
-   (fg-alt     '("#c6cdd8" "#c6cdd8" "brightwhite"  ))
+  ((bg         '("#0D1017" nil nil))          ; L=8
+   (bg-alt     '("#131721" nil nil))          ; L=12
+   (base0      '("#171C26" "black" "black"))  ; L=15
+   (base1      '("#1D2332" "#1D2332" "brightblack"))
+   (base2      '("#242B3D" "#242B3D" "brightblack"))
+   (base3      '("#2D354A" "#2D354A" "brightblack"))
+   (base4      '("#3D4759" "#3D4759" "brightblack"))
+   (base5      '("#566178" "#566178" "brightblack"))
+   (base6      '("#6C7A9C" "#6C7A9C" "brightblack"))
+   (base7      '("#8A93A8" "#8A93A8" "brightblack"))
+   (base8      '("#BFBDB6" "#BFBDB6" "white"))  ; Ayu foreground[3]
+   (fg         '("#BFBDB6" "#BFBDB6" "white"))  ; Text
+   (fg-alt     '("#A8A8A8" "#A8A8A8" "brightwhite"))
 
    (grey       '("#9A9A9A" "#9A9A9A" "brightblack"  ))
    (red        '("#E3D2C4" "#E3D2C4" "red"          ))
    (orange     '("#E6D5C0" "#E6D5C0" "brightred"    ))
-   (yellow     '("#E8E0D0" "#E8E0D0" "yellow"       ))
+   (yellow     '("#D8C8A8" "#D8C8A8" "yellow"))
    (green      '("#D0D8C8" "#D0D8C8" "green"        ))
    (blue       '("#D0D0D0" "#D0D0D0" "brightblue"   ))
    (dark-blue  '("#A8A8A8" "#A8A8A8" "blue"         ))
    (teal       '("#CFCFC8" "#CFCFC8" "brightcyan"   ))
    (magenta    '("#E0D0C0" "#E0D0C0" "magenta"      ))
    (violet     '("#CACAC8" "#CACAC8" "brightmagenta"))
-   (cyan       '("#C8C8C0" "#C8C8C0" "cyan"         ))
-   (dark-cyan  '("#A8A8A0" "#A8A8A0" "cyan"         ))
+   (cyan       '("#8AA8B8" "#8AA8B8" "cyan"))       ; Soft cyan
+   (dark-cyan  '("#6C8A9C" "#6C8A9C" "cyan"))
 
    ;; face categories -- required for all themes
-   (highlight      yellow)
+   (highlight      teal)                     ; Subtle highlight
    (vertical-bar   base0)
-   (selection      bg-alt)
+   (selection      '("#2A3040" "#2A3040"))   ; Low-contrast selection
    (builtin        orange)
-   (comments       (doom-lighten grey 0.1))
+   (comments       (doom-lighten grey 0.1))  ; Controlled brightness
    (doc-comments   (doom-lighten grey 0.25))
    (constants      red)
-   (functions      yellow)
-   (keywords       teal)
-   (methods        yellow)
-   (operators      blue)
-   (type           (doom-lighten orange 0.1))
-   (strings        green)
-   (variables      (doom-lighten blue 0.4))
+   (functions      blue)                     ; Muted blue functions
+   (keywords       teal)                     ; Ayu-inspired teal
+   (methods        blue)
+   (operators      dark-blue)
+   (type           orange)
+   (strings        green)                    ; Pastel green strings
+   (variables      (doom-lighten blue 0.3))
    (numbers        orange)
-   (region         (doom-lighten selection 0.15))
+   (region         '("#2A3040" "#2A3040"))   ; Unified region color
    (error          red)
    (warning        yellow)
    (success        green)
@@ -109,43 +109,45 @@ determine the exact padding."
    (-modeline-bright doom-kera-brighter-modeline)
    (-modeline-pad
     (when doom-kera-padded-modeline
-      (if (integerp doom-kera-padded-modeline) doom-kera-padded-modeline 4)))
+      (if (integerp doom-kera-padded-modeline) doom-kera-padded-modeline 2)))
 
    (modeline-fg     base8)
    (modeline-fg-alt comments)
 
    (modeline-bg
     (if -modeline-bright
-        (doom-darken yellow 0.475)
+        (doom-darken teal 0.45)
       (doom-darken (car bg-alt) 0.15)))
    (modeline-bg-l
     (if -modeline-bright
-        (doom-darken yellow 0.45)
+        (doom-darken teal 0.45)
       `(,(doom-darken (car bg-alt) 0.1) ,@(cdr base0))))
-   (modeline-bg-inactive   (doom-darken bg-alt 0.1))
+   (modeline-bg-inactive   (doom-darken bg-alt 0.2))
    (modeline-bg-inactive-l `(,(car bg-alt) ,@(cdr base1))))
 
   ;; --- extra faces ------------------------
   ((elscreen-tab-other-screen-face :background "#353a42" :foreground "#1e2022")
 
-   (evil-goggles-default-face :inherit 'region :background (doom-blend region bg 0.5))
+   (evil-goggles-default-face :inherit 'region :background (doom-blend region bg 0.4))
 
    ((line-number &override) :foreground base6 :background bg)
-   ((line-number-current-line &override) :foreground fg)
+   ((line-number-current-line &override) :foreground fg :background bg-alt :bold t)
+
+   (hl-line :background (doom-darken bg-alt 0.1))
 
    (font-lock-comment-face
     :foreground comments
-    :background (if doom-kera-comment-bg (doom-lighten bg 0.05)))
+    :background (when doom-kera-comment-bg (doom-lighten bg 0.03)))
 
    ;; Search customization
-   (isearch :background "#3D3D40" :foreground "#FFFFFF")
-   (lazy-highlight :background "#323235")
+   (isearch :background "#2A3040" :foreground teal :bold t)
+   (lazy-highlight :background "#1F2530" :foreground green)
    (completions-highlight-face :background "#242428" :foreground "#E8E0D0")
-   (vertico-current :background "#242428" :foreground "#E8E0D0" :bold t)
+   (vertico-current :background bg-alt :foreground teal :bold t)
    (consult-file :foreground "#D0D8C8")
    (marginalia-file-name :foreground "#D0D0D0")
    ((shadow &override) :foreground (doom-lighten base7 0.1))
-   (completions-annotations :inherit 'shadow)
+   (completions-annotations :foreground comments)
    (marginalia-file-priv-dir :inherit 'shadow)
    (marginalia-file-priv-no :inherit 'shadow)
    (file-name-shadow

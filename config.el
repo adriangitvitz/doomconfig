@@ -5,6 +5,34 @@
 (add-hook 'window-setup-hook #'my/tool-bar-on-and-off)
 (add-hook 'after-make-frame-functions (lambda (frame) (my/tool-bar-on-and-off)))
 
+(defun splash ()
+  (let* ((banner '("█████▇▆▅▄▃▁▁▁▁ ▁▁    ▃▄▄▄▄▄▄▄▄▃▁▁▁▁    ▂▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▂▂▃▄▄▄▄▄▄▄▄▄▄▂▁▁▁▁▁▁▁▁▁▁▁▂▃▄▅▅▆██"
+                   "████▇███▇▅▂▁▁▁▁▁▁▁▁  ▂▃▄▄▄▄▃▃▂▁▁▁▁     ▁▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▃▁▂▄▄▄▄▄▄▄▃▁   ▃▄▃▃▃▃▃▃▃▃  ▁▁▁▁▁▁▁▁▂▄▅▅▅▅▆▇██"
+                   "████▇▇▇▇▅▂ ▁ ▁▁▁▁▁▁▁  ▁▂▃▃▃▃▂▁▁▁▁▁ ▂▃  ▂▃▃▃▃▃▃▃▃▃▃▃▃▃▃▂▁  ▁▃▃▃▃▃▃▂▁   ▁▂▃▃▃▂▁ ▁▁▁ ▁▁▁▁▁▁▃▅▅▅▅▅▅▆▇███"
+                   "█████▇▆▄▅▅▄▂▁▁▁▁▁▁▁  ▁  ▂▂▂▂▁▁▁▁▁▂▄▅▃▁ ▂▂▂▂▂▂▃▃▃▃▃▃▃▃▂▁▁▁  ▂▂▂▂▂▂▁▂▃▁   ▂▂▂     ▁▁▁▁▁▂▄▅▅▅▅▅▅▆▆▆▇███"
+                   "████▇██▇▆▄▅▄▅▄▂▁▁▁▁▂▃▂▁ ▁▂▁▁▁▁▁▁▃▅▅▅▂▁  ▃▂▂▂▂▁▂▂▂▂▂▂▂▁▁▁    ▂▂▂▂▁▁▃▅▃▁▁  ▁▁▁▁  ▁▁▁▁▃▄▆▆▆▆▆▆▆▅▆▇▇▇▇██"
+                   "██▇▇▇▆▆▅▄▅▄▄▄▅▄▂▂▂▃▄▄▃▂▁ ▁▁▁▁▁▂▄▅▅▃▃▁▁▃▄▅▂▂▂▂▂▁▁▁▁▁▂▁▁▁     ▁▁▁▁ ▁▄▄▄▂▂▃▂▂ ▁▁▁▁▁▂▃▅▆▆▆▆▆▆▆▆▆▆▆▆▆▆▆██"
+                   "██▇▇▇▇▆▃▂▂▄▅▅▄▄▃▃▃▃▃▃▄▃▂▁  ▁▂▃▄▅▅▅▄▂▁▁▄▅▄▂▂▁▁▁▁▁▁▁▁▁▁▁▁         ▁▂▄▄▄▂▁▃▂▂▁▁▁▁▁▂▅▆▆▆▆▆▆▆▆▅▆▆▆▅▅▅▆███"
+                   "██▇▇▇▇██▆▅▃▄▅▄▄▄▄▃▃▄▄▄▃▁▂▂▁▁▄▄▄▅▅▃▄▄▁▁▃▅▃▂▃▁▁▁▁▁▁▁▁▁▁▁▁▁▁      ▂▂▃▄▄▄▂▂▂▃▂▂▁  ▁▅▆▆▆▅▅▅▆▅▅▅▅▅▅▅▅▆▇███"
+                   "███▇▇▆▇██▇▇▇▇▇▅▄▄▄▄▅▄▄▂▁▁▁▃▃▃▄▅▅▅▅▃▄▂▁▂▅▃▂▃▁▁      ▂▂▁ ▁▁▁    ▂▅▄▂▃▄▃▂▁▂▂▂▁▂▁ ▂▆▆▆▅▅▅▅▅▅▅▅▅▅▆▆▇█████"
+                   "████▇▇▇▇████▇▆▄▅▄▄▄▅▄▄▃▁▃▃▃▃▄▄▅▅▅▅▄▂▂▁▁▄▄▄▂▂▁▁   ▁▁▃▂▁▁▁ ▁ ▁▁▃▄▄▄▂▂▄▃▁▁▁▂▁▁▁▂▂▄▆▅▅▅▅▅▅▅▅▅▆▆▆▆▆▇▆▆███"
+                   "███████▇███▇▄▂▅▄▄▄▄▅▅▃▃▄▄▄▄▄▄▅▅▅▅▅▅▂▁▁▁▄▃▃▃▁▁▁ ▁▁▃▃▃▃ ▁▁▁▁▁▁▁▄▄▄▂▃▃▂▃▃▃▁▁▂▂▁ ▁▅▅▅▅▅▅▆▆▆▆▆▅▄▄▅▅▃▃▇▇██"
+                   "█████████▇▆▅▅▃▂▅▄▅▄▄▄▄▃▃▃▃▃▄▄▄▅▅▅▅▅▃▁▁▁▂▃▂▃▂▁▁▁▂▃▃▃▃▂ ▂▂▂▁▁▁▂▄▄▄▂▁▂▃▂▁▃▃▂▁▂▃▂▄▅▅▅▆▆▆▅▄▃▃▆▅▅▅▃▂▃▆▇▇██"
+                   "█████▇█▇▆▅▂▁▂▅▄▅▅▄▄▅▄▄▄▄▄▄▄▄▄▅▅▅▅▅▅▂▁▁▁▂▄▂▃▃▁▂▂▂▂▂▂▃▂  ▁▂▂▁▂▃▄▄▄▃▁▁▂▃▂▂▃▄▄▄▅▅▆▅▆▆▆▆▆▅▅▅▃▄▆▅▃▆▇██████"
+                   "██▇▇███▇▆▄▄▄▂▂▅▄▄▅▃▄▅▄▄▄▄▃▄▄▄▄▄▄▅▅▅▃▁▃▁▂▄▁▁▄▂▁▂▂▁▂▂▂▂▂▁  ▁▂▃▄▄▄▄▃▂▂▂▃▄▅▅▅▅▅▅▆▆▆▆▅▅▅▆▆▆▆▄▃▃▆▆▆▇███▇██"
+                   "██▇▇▇████▇▄▅▅▄▄▅▄▄▄▂▄▅▄▄▅▄▃▃▃▄▄▄▄▅▅▄▁▂▂▂▄▂▁▃▃▂▂▂▁▂▂▂▁▁▁▁▁▂▄▄▄▄▄▄▄▂▁▂▄▆▅▅▅▅▆▆▆▆▆▆▆▄▄▆▆▆▆▅▄▄▅▄▂▂▆▆▇▇██"))
+         (longest-line (apply #'max (mapcar #'length banner))))
+    (put-text-property
+     (point)
+     (dolist (line banner (point))
+       (insert (+doom-dashboard--center
+                +doom-dashboard--width
+                (concat line (make-string (max 0 (- longest-line (length line))) 32)))
+               "\n"))
+     'face 'doom-dashboard-banner)))
+
+(setq +doom-dashboard-ascii-banner-fn #'splash)
+
 (setq rainbow-ansi-colors t
       rainbow-x-colors t)
 
@@ -17,8 +45,8 @@
 
 (add-to-list 'default-frame-alist '(inhibit-double-buffering . t))
 
-(setq doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 19 :weight 'bold)
-      doom-variable-pitch-font (font-spec :family "MonoLisa" :size 19 :weight 'bold))
+(setq doom-font (font-spec :family "Cascadia Code" :size 19 :weight 'semi-bold)
+      doom-variable-pitch-font (font-spec :family "Cascadia Code" :size 19 :weight 'semi-bold))
 
 (setq line-spacing 0.4)
 (setq mac-allow-anti-aliasing t)
@@ -230,3 +258,47 @@
 (after! lsp-ui
   (setq lsp-ui-sideline-enable nil  ; no more useful than flycheck
         lsp-ui-doc-enable nil))     ; redundant with K
+
+;; Bookmarks
+(map! :leader
+      (:prefix ("b". "buffer"))
+      :desc "List bookmarks" "L" #'list-bookmarks)
+
+;; Dired
+(map! :leader
+      (:prefix ("d" . "dired")
+       :desc "Open dired" "d" #'dired
+       :desc "Dired jump to current" "j" #'dired-jump)
+      (:after dired
+              (:map dired-mode-map
+               :desc "Peep-dired image previews" "d p" #'peep-dired
+               :desc "Dired view file"           "d v" #'dired-view-file)))
+
+;; Markdown
+(custom-set-faces
+ '(markdown-header-face ((t (:inherit font-lock-function-name-face :weight bold :family "variable-pitch"))))
+ '(markdown-header-face-1 ((t (:inherit markdown-header-face :height 1.7))))
+ '(markdown-header-face-2 ((t (:inherit markdown-header-face :height 1.6))))
+ '(markdown-header-face-3 ((t (:inherit markdown-header-face :height 1.5))))
+ '(markdown-header-face-4 ((t (:inherit markdown-header-face :height 1.4))))
+ '(markdown-header-face-5 ((t (:inherit markdown-header-face :height 1.3))))
+ '(markdown-header-face-6 ((t (:inherit markdown-header-face :height 1.2)))))
+
+;; Move lines up or down
+(defun move-line-up ()
+  "Move up the current line."
+  (interactive)
+  (transpose-lines 1)
+  (forward-line -2)
+  (indent-according-to-mode))
+
+(defun move-line-down ()
+  "Move down the current line."
+  (interactive)
+  (forward-line 1)
+  (transpose-lines 1)
+  (forward-line -1)
+  (indent-according-to-mode))
+
+(global-set-key (kbd "s-j") 'move-line-up)
+(global-set-key (kbd "s-k") 'move-line-down)
