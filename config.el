@@ -303,3 +303,121 @@
 
 (global-set-key (kbd "s-j") 'move-line-up)
 (global-set-key (kbd "s-k") 'move-line-down)
+
+(require 'ansi-color)
+
+(defvar-local glow-temp-file nil
+  "Temporary file for Glow markdown preview.")
+
+(defvar-local glow-preview-buffer nil
+  "Buffer used for Glow markdown preview.")
+
+(defvar-local glow-update-timer nil
+  "Timer for delayed preview updates.")
+
+(defgroup glow-preview nil
+  "Options for Glow Markdown previews."
+  :group 'markdown)
+
+(defcustom glow-style "dark"
+  "Style to use for Glow preview."
+  :type 'string
+  :group 'glow-preview)
+
+(defcustom glow-width 80
+  "Width in columns for the Glow preview."
+  :type 'integer
+  :group 'glow-preview)
+
+;; Glow minor mode
+(define-minor-mode glow-live-preview-mode
+  "Toggle live preview of markdown using Glow."
+  :lighter " Glow"
+  :global nil
+  (if glow-live-preview-mode
+      (progn
+        ;; Ensure Glow is installed
+        (unless (executable-find "glow")
+          (user-error "Glow executable not found. Please install glow first"))
+
+        (setq glow-temp-file (make-temp-file "glow-markdown-" nil ".md"))
+        (setq glow-preview-buffer (get-buffer-create "*Glow Live Preview*"))
+        (setq glow-update-timer nil)
+
+        (with-current-buffer glow-preview-buffer
+          (read-only-mode 1)
+          (special-mode)
+          ;; Enable ANSI colors
+          (when (fboundp 'xterm-color-unfontify-region)
+            (font-lock-mode -1))
+          (setq-local ansi-color-context-region nil))
+
+        (glow-update-preview)
+        (display-buffer glow-preview-buffer
+                        '(display-buffer-in-side-window
+                          (side . right)
+                          (window-width . 0.5)))
+
+        (add-hook 'after-change-functions #'glow-schedule-update nil t)
+        (add-hook 'kill-buffer-hook #'glow-cleanup nil t))
+
+    (when glow-update-timer
+      (cancel-timer glow-update-timer)
+      (setq glow-update-timer nil))
+    (remove-hook 'after-change-functions #'glow-schedule-update t)
+    (remove-hook 'kill-buffer-hook #'glow-cleanup t)
+    (glow-cleanup)))
+
+(defun glow-schedule-update (&rest _)
+  "Schedule an update of the Glow preview after a small delay."
+  (when glow-update-timer
+    (cancel-timer glow-update-timer))
+  (setq glow-update-timer
+        (run-with-idle-timer 0.5 nil #'glow-update-preview)))
+
+(defun glow-update-preview ()
+  "Update the Glow preview buffer."
+  (when (and glow-temp-file glow-preview-buffer (buffer-live-p glow-preview-buffer))
+    (let ((temp-file glow-temp-file)
+          (preview-buffer glow-preview-buffer))
+      (write-region (point-min) (point-max) temp-file nil 'no-message)
+      (with-current-buffer preview-buffer
+        (let ((inhibit-read-only t)
+              (orig-point (point)))
+          (erase-buffer)
+          (let ((process-environment (append '("TERM=xterm-256color"
+                                               "COLORTERM=truecolor"
+                                               "FORCE_COLOR=3")
+                                             process-environment)))
+            (let ((exit-code (call-process "glow" nil t nil
+                                           "-s" glow-style
+                                           temp-file)))
+              (if (= 0 exit-code)
+                  (progn
+                    (ansi-color-apply-on-region (point-min) (point-max))
+                    (when (fboundp 'xterm-color-colorize-buffer)
+                      (xterm-color-colorize-buffer))
+                    (goto-char orig-point)
+                    (when (eobp)
+                      (goto-char (point-min))))
+                (insert "Error running glow. Make sure it's installed correctly.")))))))))
+
+(defun glow-cleanup ()
+  "Clean up resources used by Glow preview."
+  (when glow-update-timer
+    (cancel-timer glow-update-timer)
+    (setq glow-update-timer nil))
+
+  (when glow-temp-file
+    (let ((temp-file glow-temp-file))
+      (when (file-exists-p temp-file)
+        (delete-file temp-file))))
+
+  (when (and glow-preview-buffer (buffer-live-p glow-preview-buffer))
+    (kill-buffer glow-preview-buffer)))
+
+;; Doom Emacs Glow keybinding
+(after! markdown-mode
+  (map! :map markdown-mode-map
+        :localleader
+        :desc "Toggle Glow Live Preview" "p G" #'glow-live-preview-mode))
