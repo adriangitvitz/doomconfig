@@ -329,7 +329,24 @@
   :type 'integer
   :group 'glow-preview)
 
+;; Define customization variables
+(defgroup glow-preview nil
+  "Live preview of markdown using Glow."
+  :group 'markdown)
+
+(defcustom glow-style "auto"
+  "Style to use for Glow markdown rendering.
+Can be \"auto\", \"dark\", \"light\" or a path to a JSON theme file."
+  :type 'string
+  :group 'glow-preview)
+
+;; Ensure xterm-color is available for better color support
+(use-package! xterm-color
+  :defer t)
+
 ;; Glow minor mode
+(setq glow-style "notty")
+
 (define-minor-mode glow-live-preview-mode
   "Toggle live preview of markdown using Glow."
   :lighter " Glow"
@@ -347,10 +364,15 @@
         (with-current-buffer glow-preview-buffer
           (read-only-mode 1)
           (special-mode)
-          ;; Enable ANSI colors
           (when (fboundp 'xterm-color-unfontify-region)
             (font-lock-mode -1))
-          (setq-local ansi-color-context-region nil))
+          ;; Set up buffer-local face remapping to improve ANSI color display
+          (face-remap-add-relative 'default :background (doom-color 'bg))
+          (setq-local ansi-color-context-region nil)
+          (unless (or (bound-and-true-p xterm-color-mode)
+                      (bound-and-true-p ansi-color-mode))
+            (when (fboundp 'xterm-color-mode)
+              (xterm-color-mode))))
 
         (glow-update-preview)
         (display-buffer glow-preview-buffer
@@ -387,18 +409,24 @@
           (erase-buffer)
           (let ((process-environment (append '("TERM=xterm-256color"
                                                "COLORTERM=truecolor"
-                                               "FORCE_COLOR=3")
+                                               "FORCE_COLOR=3"
+                                               "NO_COLOR=" ; Unset NO_COLOR
+                                               "CLICOLOR=1"
+                                               "CLICOLOR_FORCE=1")
                                              process-environment)))
             (let ((exit-code (call-process "glow" nil t nil
                                            "-s" glow-style
+                                           "--width" (number-to-string (window-width))
                                            temp-file)))
               (if (= 0 exit-code)
                   (progn
+                    (goto-char (point-min))
                     (ansi-color-apply-on-region (point-min) (point-max))
                     (when (fboundp 'xterm-color-colorize-buffer)
                       (xterm-color-colorize-buffer))
-                    (goto-char orig-point)
-                    (when (eobp)
+                    ;; Restore position or go to the beginning
+                    (if (< orig-point (point-max))
+                        (goto-char orig-point)
                       (goto-char (point-min))))
                 (insert "Error running glow. Make sure it's installed correctly.")))))))))
 
