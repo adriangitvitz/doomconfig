@@ -2,6 +2,11 @@
 
 ![Screenshot 2025-04-15 at 12 12 02 a m](https://github.com/user-attachments/assets/85d015e4-71b8-4aea-b378-e23a18286814)
 
+WIP: Markdown Live-Preview using [glow](https://github.com/charmbracelet/glow)
+
+![Screenshot 2025-04-15 at 1 40 55 p m](https://github.com/user-attachments/assets/e7a95565-2f01-401b-bc69-a6eb6132894f)
+
+
 ### How to install Theme
 
 Clone kera theme by using sparse checkout
