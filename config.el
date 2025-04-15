@@ -45,13 +45,14 @@
 
 (add-to-list 'default-frame-alist '(inhibit-double-buffering . t))
 
-(setq doom-font (font-spec :family "Cascadia Code" :size 19 :weight 'semi-bold)
-      doom-variable-pitch-font (font-spec :family "Cascadia Code" :size 19 :weight 'semi-bold))
+(setq doom-font (font-spec :family "Cascadia Code" :size 20 :weight 'bold)
+      doom-variable-pitch-font (font-spec :family "Cascadia Code" :size 20 :weight 'bold))
 
 (setq line-spacing 0.4)
 (setq mac-allow-anti-aliasing t)
 
 (setq doom-theme 'doom-kera)
+;; (setq doom-theme 'doom-nord-aurora)
 
 (setq doom-themes-enable-bold t)     ; Maintain readability
 (setq doom-themes-enable-italic nil)  ; Reduce eye strain
@@ -67,8 +68,8 @@
 
 (setq frame-background-mode 'dark)  ; Dark background mode
 
-(setq evil-emacs-state-cursor  '("#B85C5C" box))  ; For normal mode
-(setq evil-normal-state-cursor '("#B85C5C" box))  ; For emacs mode
+(setq evil-emacs-state-cursor  '("#d09393" box))  ; For normal mode
+(setq evil-normal-state-cursor '("#d09393" box))  ; For emacs mode
 
 (add-to-list 'load-path "~/Documents/Personal/emacsplugins/org-present")
 (autoload 'org-present "org-present" nil t)
@@ -237,8 +238,8 @@
 ;; Hide the menu for as minimalistic a startup screen as possible.
 (setq +doom-dashboard-functions '(doom-dashboard-widget-banner))
 
-(after! corfu
-  (setq corfu-auto nil))
+;; (after! corfu
+;;   (setq corfu-auto nil))
 
 (setq doom-modeline-modal nil
       doom-modeline-check-simple-format t)
