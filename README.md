@@ -1,5 +1,7 @@
 ## Doom emacs Keratoconus
 
+![Screenshot 2025-04-15 at 12 12 02 a m](https://github.com/user-attachments/assets/85d015e4-71b8-4aea-b378-e23a18286814)
+
 ### How to install Theme
 
 Clone kera theme by using sparse checkout
@@ -38,5 +40,5 @@ doom-kera-theme.el should be inside themes folder under ~/.config/doom
 ``` text
 ~/.config/doom/themes/doom-kera-theme.el
 ```
-![Screenshot 2025-04-15 at 12 12 02 a m](https://github.com/user-attachments/assets/85d015e4-71b8-4aea-b378-e23a18286814)
+
 
