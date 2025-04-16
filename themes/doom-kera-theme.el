@@ -34,7 +34,8 @@ determine the exact padding."
   ;; name        default   256       16
   (
    (bg         '("#090F19" nil nil))          ; Universal background
-   (bg-alt     '("#020406" nil nil))          ; Slightly lighter background
+   ;; (bg         '("#020406" nil nil))          ; Universal background
+   (bg-alt     '("#090F19" nil nil))          ; Slightly lighter background
    (base0      '("#090F19" "black" "black"))  ; Darkest UI elements
    (base1      '("#080E17" "#080E17" "brightblack"))
    (base2      '("#070C14" "#070C14" "brightblack"))
