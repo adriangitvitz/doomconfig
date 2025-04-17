@@ -236,7 +236,7 @@
   (advice-add #'org-roam-buffer-set-header-line-format :after #'org-roam-add-preamble-a))
 
 ;; Hide the menu for as minimalistic a startup screen as possible.
-(setq +doom-dashboard-functions '(doom-dashboard-widget-banner))
+;; (setq +doom-dashboard-functions '(doom-dashboard-widget-banner))
 
 ;; (after! corfu
 ;;   (setq corfu-auto nil))
@@ -449,3 +449,30 @@ Can be \"auto\", \"dark\", \"light\" or a path to a JSON theme file."
   (map! :map markdown-mode-map
         :localleader
         :desc "Toggle Glow Live Preview" "p G" #'glow-live-preview-mode))
+
+(use-package! websocket
+  :after org-roam)
+
+(use-package! org-roam-ui
+  :after org-roam ;; or :after org
+  ;;         normally we'd recommend hooking orui after org-roam, but since org-roam does not have
+  ;;         a hookable mode anymore, you're advised to pick something yourself
+  ;;         if you don't care about startup time, use
+  ;;  :hook (after-init . org-roam-ui-mode)
+  :config
+  (setq org-roam-ui-sync-theme t
+        org-roam-ui-follow t
+        org-roam-ui-update-on-save t
+        org-roam-ui-open-on-start t))
+
+(load! "leetcode-mode.el")
+
+(use-package! leetcode-mode
+  :commands (leetcode-search leetcode-random)
+  :init
+  (setq leetcode-lang       "python3"
+        leetcode-api-url    "https://leetcode.com/graphql"
+        leetcode-buffer-name "*LeetCode*")
+  :config
+  ;; optional: enable the global keymap by default
+  (leetcode-mode +1))

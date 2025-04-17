@@ -1,7 +1,8 @@
 ;; -*- no-byte-compile: t; -*-
 ;;; $DOOMDIR/packages.el
 (package! rainbow-mode)
-(package! org-roam)
+(unpin! org-roam)
+(package! org-roam-ui)
 
 (package! doom-kera-theme
   :recipe (:local-repo "themes"
