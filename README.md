@@ -7,7 +7,7 @@ WIP: Markdown Live-Preview using [glow](https://github.com/charmbracelet/glow)
 ![Screenshot 2025-04-15 at 1 40 55 p m](https://github.com/user-attachments/assets/e7a95565-2f01-401b-bc69-a6eb6132894f)
 
 
-WIP: LeetCode Problem Viewwer
+WIP: LeetCode Problem Viewer
 
 
 ![Screenshot 2025-04-17 at 4 27 28 a m](https://github.com/user-attachments/assets/a439c7ab-709f-424e-bfea-66dded28598b)
