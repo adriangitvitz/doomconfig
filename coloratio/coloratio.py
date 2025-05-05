@@ -155,7 +155,7 @@ if __name__ == "__main__":
         f"Contrast Ratio with Background ( {args.original} ): {original_contrast:.2f}:1"
     )
     print(
-        f"Suitable: {"YES" if min_ratio_threshold <= original_contrast <= max_ratio_threshold else "NO"}\n"
+        f"Suitable: {'YES' if min_ratio_threshold <= original_contrast <= max_ratio_threshold else 'NO'}\n"
     )
 
     if args.target:
@@ -166,5 +166,5 @@ if __name__ == "__main__":
             f"Contrast Ratio with Background ( {args.target} ): {target_contrast:.2f}:1"
         )
         print(
-            f"Suitable: {"YES" if min_ratio_threshold <= target_contrast <= max_ratio_threshold else "NO"}\n"
+            f"Suitable: {'YES' if min_ratio_threshold <= target_contrast <= max_ratio_threshold else 'NO'}\n"
         )

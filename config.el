@@ -51,7 +51,8 @@
 (setq line-spacing 0.4)
 (setq mac-allow-anti-aliasing t)
 
-(setq doom-theme 'doom-kera)
+;; (setq doom-theme 'doom-kera)
+(setq doom-theme 'doom-monochro)
 ;; (setq doom-theme 'doom-nord-aurora)
 
 (setq doom-themes-enable-bold t)     ; Maintain readability
@@ -84,18 +85,47 @@
             (org-present-small)
             (org-remove-inline-images)))
 
-(after! lsp-java
-  (setq lsp-java-server-install-dir "/Users/adriannajera/.local/share/nvim/mason/packages/jdtls/"
-        lsp-java-jdt-download-url nil  ; Disable auto-download
-        lsp-java-configuration-runtimes [
-                                         (:name "JavaSE-21"
-                                          :path "/Library/Java/JavaVirtualMachines/temurin-21.jdk/Contents/Home"
-                                          :default t)
-                                         ]
-        lsp-java-workspace-dir "~/java_workspace/"))
+(after! apheleia
+  ;; Define the formatter
+  (setf (alist-get 'google-java-format apheleia-formatters)
+        '("/Users/adriannajera/.local/share/nvim/mason/packages/google-java-format/google-java-format" "-"))
 
-(setq lsp-java-vmargs
-      ["-Xmx4G" "-XX:+UseG1GC"])
+  (setf (alist-get 'java-mode apheleia-mode-alist)
+        '(google-java-format)))
+
+(add-hook 'java-mode-hook #'apheleia-mode)
+
+(after! format
+  (setq +format-on-save-enabled-modes
+        '(not emacs-lisp-mode sql-mode tex-mode latex-mode java-mode)))
+
+
+;; (after! lsp-java
+;;   (setq lsp-java-server-install-dir "/Users/adriannajera/.local/share/nvim/mason/packages/jdtls/"
+;;         lsp-java-jdt-download-url nil  ; Disable auto-download
+;;         lsp-java-vmargs
+;;         [
+;;             "-Xmx8G"  ;; For large projects (4G < 8G < 12G)
+;;             "-XX:+UseG1GC"
+;;             "-XX:+PerfDisableSharedMem"  ;; Critical for Linux
+;;             "-XX:+AlwaysPreTouch"
+;;             "-XX:ReservedCodeCacheSize=1G"
+;;             "-XX:+UseStringDeduplication"
+;;             "-XX:MaxInlineLevel=15"
+;;             "-Djava.net.preferIPv4Stack=true"
+;;         ]
+;;         lsp-java-configuration-runtimes [
+;;                                          (:name "JavaSE-21"
+;;                                           :path "/Library/Java/JavaVirtualMachines/temurin-21.jdk/Contents/Home"
+;;                                           :default t)
+;;                                          ]
+;;         lsp-java-workspace-dir "/Users/adriannajera/java_workspace/"))
+
+;; (setq lsp-diagnostics-update-in-delay 0.5  ;; Default: 0.1
+;;       lsp-idle-delay 1.0)  ;; Default: 0.5
+;;
+;; (setq lsp-java-vmargs
+;;       ["-Xmx4G" "-XX:+UseG1GC"])
 
 (after! js2-mode
   (custom-set-faces!
@@ -124,7 +154,7 @@
 (use-package! dumb-jump
   :config (setq dumb-jump-selector 'ivy))
 
-(add-hook 'go-mode-hook #'go-guru-hl-identifier-mode)
+;; (add-hook 'go-mode-hook #'go-guru-hl-identifier-mode)
 
 
 (setq org-directory "~/Documents/Notes/roam"
@@ -470,9 +500,36 @@ Can be \"auto\", \"dark\", \"light\" or a path to a JSON theme file."
 (use-package! leetcode-mode
   :commands (leetcode-search leetcode-random)
   :init
-  (setq leetcode-lang       "python3"
+  (setq leetcode-lang       "cpp"
         leetcode-api-url    "https://leetcode.com/graphql"
         leetcode-buffer-name "*LeetCode*")
   :config
   ;; optional: enable the global keymap by default
   (leetcode-mode +1))
+
+(after! org
+  (plist-put org-format-latex-options :scale 1.80))
+
+(load! "gleam-ts-mode")
+
+(use-package! gleam-ts-mode
+  :mode (rx ".gleam" eos))
+
+;; Define language sources
+(setq treesit-language-source-alist
+      '((go "https://github.com/tree-sitter/tree-sitter-go" "v0.19.1")
+        (python "https://github.com/tree-sitter/tree-sitter-python")
+        (gomod . ("https://github.com/camdencheek/tree-sitter-gomod.git"))
+        ))
+
+;; Install grammars
+(dolist (language (mapcar #'car treesit-language-source-alist))
+  (unless (treesit-language-available-p language)
+    (treesit-install-language-grammar language)))
+
+(after! treesit
+  (add-to-list 'auto-mode-alist '("\\.gleam$" . gleam-ts-mode)))
+
+(after! gleam-ts-mode
+  (unless (treesit-language-available-p 'gleam)
+    (gleam-ts-install-grammar)))

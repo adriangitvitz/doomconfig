@@ -131,14 +131,14 @@
     (with-current-buffer (get-buffer-create leetcode-buffer-name)
       (let ((inhibit-read-only t))
         (erase-buffer)
-        (insert (format "URL: https://leetcode.com/problems/%s/\n\n" .titleSlug))
+        (insert (format "https://leetcode.com/problems/%s/\n\n" .titleSlug))
         (insert (format "#%s. %s\n\n"
                         .questionFrontendId
                         .title))
         (leetcode--render-content .content)
 
         (when-let ((hlist (append .hints nil)))
-          (insert "\n## Hints\n")
+          (insert "\n Hints\n")
           (dolist (hint hlist)
             (insert (format "- %s\n" hint))))
 

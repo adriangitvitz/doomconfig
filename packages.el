@@ -8,6 +8,10 @@
   :recipe (:local-repo "themes"
            :files ("*.el")))
 
+(package! doom-monochro-theme
+  :recipe (:local-repo "themes"
+           :files ("*.el")))
+
 ;; To install a package with Doom you must declare them here and run 'doom sync'
 ;; on the command line, then restart Emacs for the changes to take effect -- or
 (package! gruber-darker-theme

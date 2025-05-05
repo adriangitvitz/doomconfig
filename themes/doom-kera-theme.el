@@ -34,7 +34,6 @@ determine the exact padding."
   ;; name        default   256       16
   (
    (bg         '("#090F19" nil nil))          ; Universal background
-   ;; (bg         '("#020406" nil nil))          ; Universal background
    (bg-alt     '("#090F19" nil nil))          ; Slightly lighter background
    (base0      '("#090F19" "black" "black"))  ; Darkest UI elements
    (base1      '("#080E17" "#080E17" "brightblack"))
@@ -45,7 +44,7 @@ determine the exact padding."
    (base6      '("#04060A" "#04060A" "brightblack"))
    (base7      '("#030508" "#030508" "brightblack"))
    (base8      '("#020305" "#020305" "brightblack"))
-   (fg         '("#92a1ba" "#92a1ba" "white"))        ; Universal foreground
+   (fg         '("#a6abc2" "#a6abc2" "white"))        ; Universal foreground
    (fg-alt     '("#92a0b9" "#92a0b9" "brightwhite"))  ; Brighter foreground
 
    (grey       '("#AAAAAA" "#AAAAAA" "brightblack"))  ; Comments
@@ -75,7 +74,8 @@ determine the exact padding."
    (operators      dark-blue)
    (type           teal)                     ; Types (medium gray)
    (strings        green)                    ; Strings (medium gray)
-   (variables      '("#caa98f" "#caa98f" "brightwhite")) ; Variables (very light)
+   (variables      '("#a6abc2" "#a6abc2" "brightwhite")) ; Variables (very light)
+   (link           green)
    (numbers        orange)
    (region         '("#a6a6a6" "#a6a6a6"))
    (error          red)
@@ -134,6 +134,9 @@ determine the exact padding."
 
    ((line-number &override) :foreground "#8b94a4" :background base0)
    ((line-number-current-line &override) :foreground fg :background bg-alt :bold t)
+
+   ((link &override) :weight 'bold :underline nil :foreground green)
+   (link-visited :inherit 'link)
 
    (hl-line :background (doom-darken bg-alt 0.1))
 
