@@ -39,37 +39,40 @@ determine the exact padding."
 
   ;; name        default   256       16
   ((bg         '("#04060b" nil       nil            )) ;; main background
-   (bg-alt     '("#090F19" nil       nil            )) ;; slightly lighter background
-   (base0      '("#0B111C" "black"   "black"        )) ;; even darker bg for highlights
-   (base1      '("#121C2F" "#1e1e1e" "brightblack"  ))
-   (base2      '("#1A2436" "#2e2e2e" "brightblack"  ))
-   (base3      '("#21293D" "#262626" "brightblack"  ))
-   (base4      '("#2A3447" "#3f3f3f" "brightblack"  ))
-   (base5      '("#364259" "#525252" "brightblack"  ))
-   (base6      '("#495773" "#6b6b6b" "brightblack"  ))
-   (base7      '("#627499" "#979797" "brightblack"  ))
-   (base8      '("#8AA3C2" "#dfdfdf" "white"        ))
-   (fg         '("#D5E0F1" "#bfbfbf" "brightwhite")) ;; main foreground
-   (fg-alt     '("#a4a9ae" "#a4a9ae" "white")) ;; brighter foreground
+   (bg-alt     '("#090F19" nil       nil            ))   
+   (base0      '("#0B111C" "black"   "black"        ))    
+   (base1      '("#121C2F" "#1e1e1e" "brightblack"  ))  
+   (base2      '("#1A2436" "#2e2e2e" "brightblack"  ))   
+   (base3      '("#21293D" "#262626" "brightblack"  ))    
+   (base4      '("#2A3447" "#3f3f3f" "brightblack"  ))    
+   (base5      '("#364259" "#525252" "brightblack"  ))    
+   (base6      '("#495773" "#6b6b6b" "brightblack"  ))    
+   (base7      '("#627499" "#979797" "brightblack"  ))    
+   (base8      '("#8AA3C2" "#dfdfdf" "white"        ))    
+   (fg         '("#B8B8C8" "#a4a9ae" "brightwhite")) ;; main foreground
+   (fg-alt     '("#a4a9ae" "#a4a9ae" "white"))       ;; brighter foreground
 
    (grey       '("#495773"))
-   (white      '("#F0F3F8" "#ffffff" "white"        ))
-   (black      '("#0A1018" "#000000" "black"        ))
+   (white      '("#D5D5E5" "#ffffff" "white"        ))    
+   (black      '("#0A1018" "#000000" "black"        )) 
 
    (red-error '("#db9b9b" nil nil))
 
    ;; Grey palette (WCAG compliant progression)
-   (blue-0     '("#0F131A" nil "brightblack"))   ;; 19.5:1
-   (blue-1     '("#171B22" nil "brightblack"))   ;; 16.2:1
-   (blue-2     '("#20232D" nil "brightblack"))   ;; 12.8:1
-   (blue-3     '("#2A2D36" nil "brightblack"))   ;; 10.1:1
-   (blue-4     '("#343740" nil "brightblack"))   ;; 8.4:1
-   (blue-5     '("#495773" nil "brightblack"))   ;; 4.6:1 (minimum AA compliance)
-   ;; (blue-6     '("#5C6270" nil "white"))         ;; 5.8:1
-   (blue-6     '("#C0C4CC" nil "white"))         ;; 5.8:1
-   (blue-7     '("#767A85" nil "white"))         ;; 7.1:1
-   (blue-8     '("#79acd9" nil "brightblue"))    ;; Brightest blue (4.5:1, used sparingly)
-   (blue-9     '("#C0C4CC" nil "brightwhite"))   ;; 9.2:1 (reduced from 14.3:1)
+   (blue-0     '("#0F131A" nil "brightblack"))     
+   (blue-1     '("#171B22" nil "brightblack"))     
+   (blue-2     '("#20232D" nil "brightblack"))     
+   (blue-3     '("#2A2D36" nil "brightblack"))     
+   (blue-4     '("#343740" nil "brightblack"))     
+   (blue-5     '("#495773" nil "brightblack"))     
+   (blue-6     '("#8E8E9E" nil "white"))           
+   (blue-7     '("#767A85" nil "white"))           
+   (blue-8     '("#7A7A9A" nil "brightblue"))      
+   (blue-9     '("#8E8E9E" nil "brightwhite"))  
+
+   (gruber-yellow '("#c4a500", nil nil))
+   (gruber-darker-niagara '("#92a1ba" nil nil))
+   (gruber-darker-quartz '("#88ad9c" nil nil))
 
    ;; Replacing all other colors with monochromatic equivalents
    (red        blue-8)
@@ -98,13 +101,13 @@ determine the exact padding."
    (highlight      blue-8)
    (vertical-bar   (doom-darken base4 0.1))
    (selection      blue-3)
-   (builtin        blue-8)
+   (builtin        gruber-yellow)
    ;; (comments       (if doom-monochro-brighter-comments blue-7 blue-6))
    (comments   blue-9)       ;; 4.6:1 (meets AA, reduced from 7.1:1)
    (doc-comments   (doom-lighten (if doom-monochro-brighter-comments blue-7 blue-6) 0.25))
-   (constants      fg-alt)
-   (functions      white)
-   (keywords       blue-9)
+   (constants      gruber-darker-quartz)
+   (functions      gruber-darker-niagara)
+   (keywords       gruber-yellow)
    (methods        blue-7)
    (operators      base8)
    (type           fg-alt)
@@ -146,9 +149,13 @@ determine the exact padding."
   (((font-lock-comment-face &override)
     :background (if doom-monochro-comment-bg (doom-lighten bg 0.05) 'unspecified))
    ((line-number &override) :foreground base6)
-   ((line-number-current-line &override) :foreground fg :background base8)
+   ;; ((line-number-current-line &override) :foreground fg :background base8)
+   ((line-number-current-line &override) :foreground fg)
    ((font-lock-type-face &override)
     :foreground white
+    )
+   ((font-lock-keyword-face &override)
+        :bold t
     )
    (mode-line
     :background modeline-bg :foreground modeline-fg
@@ -268,4 +275,4 @@ determine the exact padding."
 
 (provide 'doom-monochro-theme)
 
-;;; doom-monochro-theme.el ends here
+;;;doom-monochro-theme.el ends here
